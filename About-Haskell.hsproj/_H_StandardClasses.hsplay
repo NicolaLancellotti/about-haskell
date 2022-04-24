@@ -1,0 +1,126 @@
+-- Haskell Playground 1.0
+--________________________________________
+-- Functors
+
+-- Maybe
+fmap (+1) Nothing
+fmap (*2) (Just 3)
+
+-- List
+fmap (+1) []
+fmap (+1) [1, 2, 3]
+
+(+1) <$> (Just 3) -- Infix version
+
+-- Generic functions
+inc (Just 3)
+inc [1, 2]
+
+--________________________________________
+-- Applicatives
+
+-- Maybe
+pure (+) :: Maybe (Int -> (Int -> Int))
+Just 1 :: Maybe Int
+pure (+) <*> (Just 1) :: Maybe (Int -> Int)
+
+-- In applicative style
+pure (+) <*> (Just 1) <*> (Just 2) :: Maybe Int
+
+(+) <$> (Just 1) <*> (Just 2) :: Maybe Int
+fmap (+) (Just 1) <*> (Just 2) :: Maybe Int
+
+-- List
+pure (+1) <*> [1,2,3]
+
+pure (+) <*> [1] <*> [2]
+(+) <$> [1] <*> [2]
+
+pure (*) <*> [1,2] <*> [3,4]
+(*) <$> [1,2] <*> [3,4]
+
+-- Generic functions
+sequenceA' [Just 1, Just 2]
+sequenceA' [Just 1, Nothing]
+
+sequenceA' [['Z'], ['a', 'b']]
+--________________________________________
+-- Monads
+
+Just conv <*> Just '1' -- Applicative
+
+Just '1' >>= conv
+
+Just '1' >>= \x -> conv x
+
+do  x <- Just '1'
+    conv x
+
+-- Maybe
+(pure safediv) <*> (Just 1) <*> (Just 2) -- Applicative
+
+(Just 4) >>= \x1 -> 
+  (Just 2) >>= \x2 ->
+  safediv x1 x2
+
+             
+do  x1 <- (Just 4)
+    x2 <- (Just 2)
+    safediv x1 x2                 
+
+-- List
+[1, 2] >>= \x1 -> 
+ [10] >>= \x2 ->
+ return (x1, x2)
+ 
+do x1 <- [1, 2]
+   x2 <- [10]
+   return (x1, x2)
+
+--________________________________________
+-- IO
+putStr' "Hello world!"
+
+--________________________________________
+-- Alternatives
+
+import Control.Applicative
+
+empty <|> (Just 1)
+
+some Nothing
+many Nothing
+
+-- some (Just 1) -- Never returns
+-- many (Just 1) -- Never returns
+
+some []
+many []
+
+-- some [1] -- Never returns
+-- many [1] -- Never returns
+
+--________________________________________
+-- Monoids
+
+import Data.Monoid
+
+Sum 1 `mappend` Sum 2
+Sum 1 <> Sum 2 -- Infix version
+
+--________________________________________
+-- Foldables
+
+import Data.Foldable
+
+foldMap Sum [1, 2]
+
+--________________________________________
+-- Traversables
+
+isEven = (\x -> if even x then (Just . show) x else Nothing) 
+
+traverse isEven [1, 2]
+traverse isEven [2, 4]
+
+sequenceA [Just 1, Just 2]

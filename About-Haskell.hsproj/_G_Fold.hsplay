@@ -1,0 +1,35 @@
+-- Haskell Playground 1.0
+xs = [1, 2, 3, 4]
+
+---------------------------------------
+-- Foldr & Foldl
+foldr' (div) 1 [12, 6] -- 12 / (6 / 1)
+foldl' (div) 12 [6, 2] -- (12 / 6) / 2
+
+---------------------------------------
+-- Length
+lengthR xs
+lengthL xs
+
+---------------------------------------
+-- Reverse
+reverseR xs
+reverseL xs
+
+---------------------------------------
+-- Map
+mapR (* (-1)) xs
+mapL (* (-1)) xs
+
+---------------------------------------
+-- Filter
+filterR even xs
+filterL even xs
+
+---------------------------------------
+-- Compose
+compose = foldr (.) id
+compose [(+1), (/6)] 12
+
+compose' = foldl (.) id
+compose' [(+1), (/6)] 12

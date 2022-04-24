@@ -1,0 +1,86 @@
+-- Haskell Playground 1.0
+-- Function composition
+(.)
+
+let list = [1, 2, 3] 
+
+sum(tail list)
+
+(sum . tail) list
+
+--Function application
+sum $ tail list -- TODO
+
+-- 
+let multTwoWithNine = multThree 9  
+let multWithEighteen = multTwoWithNine 2  
+multWithEighteen 2
+
+compareWithHundred 101
+
+divideByTen 20
+tenDividedBy 2
+
+let f = flip' zip 
+f [1,2,3,4,5] "hello"  
+---------------------------------------
+-- Errors
+top [1, 2]
+--top []
+
+--________________________________________    
+-- Strict application
+
+square x = x * x
+
+square (1 + 2)
+--(1 + 2) * (1 + 2)
+--3 * (1 + 2)
+--3 * 3
+--9
+
+square $! (1 + 2)
+--square $! 3
+--square 3
+--3 * 3
+--9
+
+mulAdd = \x -> \y -> (x * y) * y
+
+mulAdd (1 + 2) (1 + 2)
+(\y -> ((1 + 2) * y) * y) (1 + 2)
+((1 + 2) * (1 + 2)) * (1 + 2)
+(3 * (1 + 2)) * (1 + 2)
+(3 * 3) * (1 + 2)
+9 * (1 + 2)
+9 * 3
+27
+
+(mulAdd $! (1 + 2)) (1 + 2)
+(mulAdd $! 3) (1 + 2)
+(mulAdd 3) (1 + 2)
+(\y -> (3 * y) * y) (1 + 2)
+(3 * (1 + 2)) * (1 + 2)
+(3 * 3) * (1 + 2)
+9 * (1 + 2)
+9 * 3
+27
+
+(mulAdd (1 + 2)) $! (1 + 2)
+(\y -> ((1 + 2) * y) * y) $! (1 + 2)
+(\y -> ((1 + 2) * y) * y) $! 3
+(\y -> ((1 + 2) * y) * y) 3
+((1 + 2) * 3) * 3
+(3 * 3) * 3
+9 * 3
+27
+
+(mulAdd $! (1 + 2)) $! (1 + 2)
+(mulAdd $! 3) $! (1 + 2)
+(mulAdd 3) $! (1 + 2)
+(\y -> (3 * y) * y) $! (1 + 2)
+(\y -> (3 * y) * y) $! 3
+(\y -> (3 * y) * y) 3
+(3 * 3) * 3
+9 * 3
+27

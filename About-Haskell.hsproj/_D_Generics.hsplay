@@ -1,0 +1,4 @@
+-- Haskell Playground 1.0
+let intList = Cons 3 (Cons 5 (Cons 2 Empty)) :: List Int
+
+let charList = Cons 'x' (Cons 'y' (Cons 'z' Empty)) :: List Char 

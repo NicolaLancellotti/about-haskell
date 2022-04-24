@@ -1,0 +1,41 @@
+-- Haskell Playground 1.0
+let k = 1
+
+make car
+
+-- Operators
+2 * (-1)
+True && not False || True 
+
+3 /= 2
+2 ^ 2
+:type 2
+
+--________________________________________
+-- List Type
+[1, 2, 3] 
+-- is actually just syntactic  sugar for 
+1 : 2 : 3 : []
+
+[1, 2, 3, 4] !! 1 -- list indexing
+
+-- Concatenate two lists
+[1, 2] ++ [3]
+
+[1 .. 3]
+[1 ..]
+
+[81, 72 .. 9]
+
+null [1, 2]
+null []
+
+--________________________________________
+-- List comprehensions
+
+let xs = [1 .. 10]
+
+[(x, y) | x <- [1, 2], y <- [3, 4]]
+
+-- guards
+[a^2 | a <- xs, a < 5]

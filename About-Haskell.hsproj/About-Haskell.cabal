@@ -1,0 +1,21 @@
+cabal-version: 1.11
+name: About-Haskell
+version: 1.0
+license: AllRightsReserved
+stability: experimental
+x-ghc-framework-version: 8.6.4-13.14-3
+x-last-ide-version: HfM1.8.2
+build-type: Simple
+
+executable AboutHaskell
+    other-modules:
+        A_Types
+        B_Control_Flow
+        C_Bindings
+        D_Generics
+        E_Type_Classes
+        F_Functions
+        G_Fold
+        H_StandardClasses
+    build-depends:
+        base -any

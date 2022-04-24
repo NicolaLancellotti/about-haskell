@@ -1,0 +1,6 @@
+-- Haskell Playground 1.0
+let x = 3 :: Int
+foo x x
+toList (x, x)
+
+read "('a', False)" :: (Char, Bool)
